@@ -7,7 +7,7 @@ public class ResourceGenerator: MonoBehaviour
     //[SerializeField] protected ResourceName _resourceName;
     [SerializeField] protected List<GameObject> _listBrick;
 
-    [SerializeField] private int _number;
+    [SerializeField] public int _number;
 
     private void Start()
     {
