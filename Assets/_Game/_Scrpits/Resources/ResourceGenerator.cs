@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class ResourceGenerator: MonoBehaviour
 {
-    //[SerializeField] protected ResourceName _resourceName;
-    [SerializeField] protected List<GameObject> _listBrick;
-
     [SerializeField] public int _number;
-
+    [SerializeField] private int _numberBrick;
+    
     private void Start()
     {
-        Generating();
+       Generating();
     }
     private void Update()
     {
-        
-    }
-    protected virtual void Generating()
-    {
-        _number = Random.Range(0, 5);
-        ResourceManager._instance.ChangeColor(_number, transform.gameObject);
+      
     }
 
+    public virtual void Generating()
+    {
+        // _number = Random.Range(0, 5);
+        do
+        {
+            _number = Random.Range(0, 4);
+        } while (BrickManagerment.arr1[_number] == 39);
+
+        ResourceManager._instance.ChangeColor(_number, transform.gameObject);
+        BrickManagerment.arr1[_number]++;
+    }
 }

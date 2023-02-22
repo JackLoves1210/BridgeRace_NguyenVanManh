@@ -9,12 +9,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private FloatingJoystick _joystick;
     [SerializeField] private AnimationController _animatorController;
 
-    [SerializeField] private float _moveSpeed;
+    [SerializeField] public float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
 
     private Rigidbody _rigidbody;
 
-    private Vector3 _moveVector;
+    public Vector3 _moveVector;
 
 
     private void Awake()
@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Move();
+        ActiveSpeed();
     }
 
     private void Move()
@@ -47,4 +48,14 @@ public class PlayerMovement : MonoBehaviour
 
         _rigidbody.MovePosition(_rigidbody.position + _moveVector);
     }
+    public void StopMoveToForward()
+    {
+        _moveSpeed = 0.1f;
+        
+    }
+    public void ActiveSpeed()
+    {
+        _moveSpeed = 6;
+    }
+
 }
