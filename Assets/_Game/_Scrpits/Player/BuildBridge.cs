@@ -56,7 +56,7 @@ public class BuildBridge : MonoBehaviour
             if (hit.collider != null && !_isHaveStep && _numberBrick > 0)
             {
                 _isHaveStep = false;
-                _step.GetComponent<Renderer>().material = _getColorCharacter.gameObject.GetComponent<Renderer>().material;
+                _step.GetComponent<GetColor>()._numColor = _getColorCharacter.gameObject.GetComponent<GetColor>()._numColor;
                 GameObject obj = Instantiate(_step, new Vector3(hit.collider.transform.position.x,hit.point.y+0.25f,hit.point.z + 0.45f) , Quaternion.identity);
                 _playerGetBrick.RemoveBrick();
                 obj.gameObject.transform.SetParent(_brigde);
@@ -70,6 +70,16 @@ public class BuildBridge : MonoBehaviour
                 _player.GetComponent<PlayerMovement>().ActiveSpeed();
             }
 
+        }
+        else if(hit.collider != null && _isHaveStep && _numberBrick > 0)
+        {
+            if (hit.collider.GetComponent<GetColor>()._numColor != _getColorCharacter.gameObject.GetComponent<GetColor>()._numColor)
+            {
+                hit.collider.GetComponent<GetColor>()._numColor = _getColorCharacter.gameObject.GetComponent<GetColor>()._numColor;
+                hit.collider.GetComponent<Renderer>().material = _getColorCharacter.gameObject.GetComponent<Renderer>().material;
+                _playerGetBrick.RemoveBrick();
+            }
+            
         }
     }
 }
