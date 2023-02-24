@@ -8,7 +8,7 @@ public class OpenDoor : MonoBehaviour
     [SerializeField] private GameObject _bricks;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Bot"))
         {
             SetActiveBrick();
             obj.GetComponent<Renderer>().enabled = false;

@@ -61,11 +61,11 @@ public class BuildBridge : MonoBehaviour
                 _playerGetBrick.RemoveBrick();
                 obj.gameObject.transform.SetParent(_brigde);
             }
-            else if (hit.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z >0)
+            else if (hit.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z >0 && transform.CompareTag("Player"))
             {
                 _player.GetComponent<PlayerMovement>().StopMoveToForward();
             }
-            else if (hit.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z < 0)
+            else if (hit.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z < 0 && transform.CompareTag("Player"))
             {
                 _player.GetComponent<PlayerMovement>().ActiveSpeed();
             }

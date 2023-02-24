@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    [SerializeField] private AnimationController _animatorController;
-    [SerializeField] private float _rotateSpeed;
-    [SerializeField] private float _moveSpeed;
+    [SerializeField] public AnimationController _animatorController;
+    [SerializeField] public float _rotateSpeed;
+    [SerializeField] public float _moveSpeed;
 
-
-    public virtual void Start()
+    protected virtual void Start()
     {
-        
+        Oninit();
     }
-    public virtual void Update()
-    {
 
+    protected virtual void Oninit()
+    {
+        _rotateSpeed = 3f;
+        _moveSpeed = 6f;
     }
 
     public virtual void Move()
@@ -24,10 +25,10 @@ public class CharacterController : MonoBehaviour
     }
     public virtual void StopMoveToForward()
     {
-
+        _moveSpeed = 0.1f;
     }
     public virtual void ActiveSpeed()
     {
-
+        _moveSpeed = 6;
     }
 }

@@ -16,7 +16,7 @@ public class CloseDoor : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Bot"))
         {
             SetActiveFloor_1();
             _door.GetComponent<BoxCollider>().enabled = true;
