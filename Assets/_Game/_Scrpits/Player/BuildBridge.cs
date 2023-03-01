@@ -22,24 +22,32 @@ public class BuildBridge : MonoBehaviour
     private bool _isHaveStep;
     private void Update()
     {
-        _numberBrick = _playerGetBrick.GetComponent<PlayerGetBrick>()._stackBrick.Count;
-        BuildStair();
+        
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.CompareTag("Brigde"))
+        {
+            _numberBrick = _playerGetBrick.GetComponent<PlayerGetBrick>()._stackBrick.Count;
+            BuildStair();
+        }
     }
     private void BuildStair()
     {
         Debug.DrawLine(_player.position + new Vector3(0, 1f, 0.25f), _player.position + new Vector3(0, 0, 0.25f) + Vector3.down * 50f, color: Color.red);
         Ray ray = new Ray(_player.position + new Vector3(0, 1f, 0.25f), Vector3.down);
-        RaycastHit hit;
-        bool isHit = Physics.Raycast(ray, out hit, 50f,_BRIDGE_LAYER);
+        RaycastHit hitForward;
+        bool isHit = Physics.Raycast(ray, out hitForward, 50f,_BRIDGE_LAYER);
 
         // hit2 check phia trc co gach ko
         Debug.DrawLine(_player.position + new Vector3(0, 2f, 1f), _player.position + new Vector3(0, 0, 0.25f) + Vector3.down * 50f, Color.blue);
-        RaycastHit hit_1;
+        RaycastHit checkEmptyBridgeRay;
         Ray ray_1 = new Ray(_player.position + new Vector3(0, 2f, 1f), Vector3.down);
-        bool isHit_1 = Physics.Raycast(ray_1, out hit_1, 50f, _BRIDGE_LAYER);
+        bool isHit_1 = Physics.Raycast(ray_1, out checkEmptyBridgeRay, 50f, _BRIDGE_LAYER);
         if (isHit_1)
         {
-            if (hit_1.collider != null && hit_1.collider.tag == "Stair")
+            if (checkEmptyBridgeRay.collider != null && checkEmptyBridgeRay.collider.CompareTag("Stair"))
             {
                 _isHaveStep = true;
             }
@@ -47,39 +55,53 @@ public class BuildBridge : MonoBehaviour
         }
         if (isHit && !_isHaveStep)
         {
-            if (hit.collider != null && hit.collider.tag == "Stair")
+            if (hitForward.collider != null && hitForward.collider.CompareTag("Stair"))
             {
                 _isHaveStep = true;
                 //Debug.Log("Not spawn");
             }
             
-            if (hit.collider != null && !_isHaveStep && _numberBrick > 0)
+            if (hitForward.collider != null && !_isHaveStep && _numberBrick > 0)
             {
                 _isHaveStep = false;
                 _step.GetComponent<GetColor>()._numColor = _getColorCharacter.gameObject.GetComponent<GetColor>()._numColor;
-                GameObject obj = Instantiate(_step, new Vector3(hit.collider.transform.position.x,hit.point.y+0.25f,hit.point.z + 0.45f) , Quaternion.identity);
+                GameObject obj = Instantiate(_step, new Vector3(hitForward.collider.transform.position.x,hitForward.point.y+0.25f,hitForward.point.z + 0.45f) , Quaternion.identity);
                 _playerGetBrick.RemoveBrick();
                 obj.gameObject.transform.SetParent(_brigde);
             }
-            else if (hit.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z >0 && transform.CompareTag("Player"))
+            else if (transform.CompareTag("Player"))
             {
-                _player.GetComponent<PlayerMovement>().StopMoveToForward();
-            }
-            else if (hit.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z < 0 && transform.CompareTag("Player"))
-            {
-                _player.GetComponent<PlayerMovement>().ActiveSpeed();
+                if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z > 0)
+                {
+                    _player.GetComponent<PlayerMovement>().StopMoveToForward();
+                   // Debug.Log("speed " + _player.GetComponent<PlayerMovement>()._moveSpeed);
+                 //   Debug.Log("Stop move");
+                }
+                else if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z < 0)
+                {
+                    //Debug.Log("speed " + _player.GetComponent<PlayerMovement>()._moveSpeed);
+                   // Debug.Log("Active move");
+                    _player.GetComponent<PlayerMovement>().ActiveSpeed();
+                }
+                else
+                {
+                    _player.GetComponent<PlayerMovement>().ActiveSpeed();
+                }
             }
 
         }
-        else if(hit.collider != null && _isHaveStep && _numberBrick > 0)
+        else if (transform.CompareTag("Player") || transform.CompareTag("Bot"))
         {
-            if (hit.collider.GetComponent<GetColor>()._numColor != _getColorCharacter.gameObject.GetComponent<GetColor>()._numColor)
+            if (hitForward.collider != null && _isHaveStep && _numberBrick > 0)
             {
-                hit.collider.GetComponent<GetColor>()._numColor = _getColorCharacter.gameObject.GetComponent<GetColor>()._numColor;
-                hit.collider.GetComponent<Renderer>().material = _getColorCharacter.gameObject.GetComponent<Renderer>().material;
-                _playerGetBrick.RemoveBrick();
+                if (hitForward.collider.GetComponent<GetColor>()._numColor != _getColorCharacter.gameObject.GetComponent<GetColor>()._numColor)
+                {
+                    hitForward.collider.GetComponent<GetColor>()._numColor = _getColorCharacter.gameObject.GetComponent<GetColor>()._numColor;
+                    hitForward.collider.GetComponent<Renderer>().material = _getColorCharacter.gameObject.GetComponent<Renderer>().material;
+                    _playerGetBrick.RemoveBrick();
+                }
+
             }
-            
         }
     }
 }

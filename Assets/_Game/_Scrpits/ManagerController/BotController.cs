@@ -7,6 +7,7 @@ public class BotController : CharacterController
 {
     [SerializeField] Transform _underBrigde;
     [SerializeField] Transform _inTheBrigde;
+    [SerializeField] Transform _targetWin;
 
     [SerializeField] private GameObject _listBrick_1;
     [SerializeField] private GameObject _listBrick_2;
@@ -32,7 +33,7 @@ public class BotController : CharacterController
         //  Debug.Log(Vector3.Distance(transform.position, _underBrigde.position));
         GetTargetToList();
         // Tìm kiếm đối tượng vật thể gần nhất
-        Debug.Log(_playerGetBrick._stackBrick.Count);
+     //   Debug.Log(_playerGetBrick._stackBrick.Count);
         if (_nextTarget == null || _playerGetBrick._stackBrick.Count <= 0)
         {
             _nextTarget = FindClosestFood();

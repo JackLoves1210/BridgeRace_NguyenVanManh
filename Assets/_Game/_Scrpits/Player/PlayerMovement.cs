@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMovement : CharacterController
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private FloatingJoystick _joystick;
-  //  [SerializeField] private AnimationController _animatorController;
+    [SerializeField] private AnimationController _animatorController;
 
-    //[SerializeField] public float _moveSpeed;
-    //[SerializeField] private float _rotateSpeed;
+    [SerializeField] public float _moveSpeed;
+    [SerializeField] private float _rotateSpeed;
 
     private Rigidbody _rigidbody;
 
@@ -27,17 +27,16 @@ public class PlayerMovement : CharacterController
     private void Update()
     {
         Move();
-        ActiveSpeed();
     }
 
-    protected override void Oninit()
+    protected  void Oninit()
     {
-        base.Oninit();
+        _rotateSpeed = 3f;
+        _moveSpeed = 6f;
     }
 
-    public override void Move()
+    public  void Move()
     {
-        base.Move();
         _moveVector = Vector3.zero;
         _moveVector.x = _joystick.Horizontal * _moveSpeed * Time.deltaTime;
         _moveVector.z = _joystick.Vertical * _moveSpeed * Time.deltaTime;
@@ -56,16 +55,14 @@ public class PlayerMovement : CharacterController
 
         _rigidbody.MovePosition(_rigidbody.position + _moveVector);
     }
-    public override void StopMoveToForward()
+    public void StopMoveToForward()
     {
-        base.StopMoveToForward();
-       
-        
+        _moveSpeed = 0.1f;
     }
-    public override void ActiveSpeed()
+    public void ActiveSpeed()
     {
-        base.ActiveSpeed();
-        
+
+        _moveSpeed = 6f;
     }
 
 }

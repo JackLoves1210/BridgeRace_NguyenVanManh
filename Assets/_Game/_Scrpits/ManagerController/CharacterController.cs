@@ -16,7 +16,7 @@ public class CharacterController : MonoBehaviour
     protected virtual void Oninit()
     {
         _rotateSpeed = 3f;
-        _moveSpeed = 6f;
+        _moveSpeed = 4f;
     }
 
     public virtual void Move()
@@ -25,10 +25,10 @@ public class CharacterController : MonoBehaviour
     }
     public virtual void StopMoveToForward()
     {
-        _moveSpeed = 0.1f;
+        _moveSpeed = 0f;
     }
     public virtual void ActiveSpeed()
     {
-        _moveSpeed = 6;
+        _moveSpeed = 4f;
     }
 }

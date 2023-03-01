@@ -21,6 +21,10 @@ public class AnimationController : MonoBehaviour
         ChangeAnim("run");
     }
 
+    public void PlayWin()
+    {
+        ChangeAnim("win");
+    }
     private void ChangeAnim(string _animName)
     {
         if (_currentAnim != _animName)

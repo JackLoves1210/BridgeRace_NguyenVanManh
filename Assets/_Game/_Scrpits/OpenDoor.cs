@@ -20,7 +20,7 @@ public class OpenDoor : MonoBehaviour
     {
         foreach  (Transform item in _bricks.transform)
         {
-            item.gameObject.SetActive(false);
+            item.gameObject.SetActive(true);
         }
     }
     

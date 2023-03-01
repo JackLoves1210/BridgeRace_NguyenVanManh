@@ -32,12 +32,11 @@ public class PlayerGetBrick : MonoBehaviour
             {
                 AddBrick();
                 int num = other.gameObject.GetComponent<ResourceGenerator>()._number;
-                BrickManagerment.arr1[num]--;
+             //s   BrickManagerment.arr1[num]--;
               //  _brickManagerment.arr1[num]--;
                 //  Destroy(other.gameObject);
                 _bricks.Add(other.gameObject);
                 other.gameObject.SetActive(false);
-                
             }
         }
         

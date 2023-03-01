@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatrolState : IState<Character>
+public class BuildBrigeState : IState<Character>
 {
     public void OnEnter(Character t)
     {
@@ -11,12 +11,11 @@ public class PatrolState : IState<Character>
 
     public void OnExecute(Character t)
     {
-
+        t.Move();
     }
 
     public void OnExit(Character t)
     {
 
     }
-
 }
