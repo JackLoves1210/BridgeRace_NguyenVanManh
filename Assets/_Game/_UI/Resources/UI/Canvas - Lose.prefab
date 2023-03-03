@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5868136518003650289}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: ResetGame
         m_Mode: 1
@@ -378,7 +378,6 @@ GameObject:
   - component: {fileID: 4307086193089169599}
   - component: {fileID: 4307086193089169596}
   - component: {fileID: 4307086193089169593}
-  - component: {fileID: 5868136518003650289}
   - component: {fileID: 3944510819872449783}
   m_Layer: 5
   m_Name: Canvas - Lose
@@ -481,20 +480,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDestroyOnClose: 0
---- !u!114 &5868136518003650289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4307086193089169586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e002edaadc52e6a4dad9d6c30301919f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sceneManagerment: {fileID: 3944510819872449783}
-  isGameWon: 0
 --- !u!114 &3944510819872449783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,8 +612,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5868136518003650289}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+      - m_Target: {fileID: 3944510819872449783}
+        m_TargetAssemblyTypeName: SceneManagerment, Assembly-CSharp
         m_MethodName: ResetGame
         m_Mode: 1
         m_Arguments:

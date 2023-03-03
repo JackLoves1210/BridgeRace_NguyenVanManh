@@ -79,13 +79,9 @@ public class BuildBridge : MonoBehaviour
                 if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z > 0)
                 {
                     _player.GetComponent<PlayerMovement>().StopMoveToForward();
-                   // Debug.Log("speed " + _player.GetComponent<PlayerMovement>()._moveSpeed);
-                 //   Debug.Log("Stop move");
                 }
                 else if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z < 0)
                 {
-                    //Debug.Log("speed " + _player.GetComponent<PlayerMovement>()._moveSpeed);
-                   // Debug.Log("Active move");
                     _player.GetComponent<PlayerMovement>().ActiveSpeed();
                 }
                 else

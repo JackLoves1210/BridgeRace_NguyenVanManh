@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Win : UICanvas
 {
     //public Text score;
-
+  
     public void MainMenuButton()
     {
         UIManager.Ins.OpenUI<MianMenu>();

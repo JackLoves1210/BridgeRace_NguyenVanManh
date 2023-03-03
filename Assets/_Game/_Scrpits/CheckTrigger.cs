@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheckTrigger : MonoBehaviour
 {
-    [SerializeField] private PlayerMovement _playerMovement;
+    [SerializeField] private GameObject _tranformMovement;
     [SerializeField] private PlayerGetBrick balo;
 
     Rigidbody rb;
@@ -15,17 +15,15 @@ public class CheckTrigger : MonoBehaviour
         {
             if (balo._countBrick < collision.collider.GetComponent<Character>()._botGetBrick._countBrick)
             {
-                Invoke(nameof(fall), 1f);
-                _playerMovement.ActiveSpeed();
+                StartCoroutine(fall());
+                _tranformMovement.GetComponent<AnimationController>().PlayRun();
             }
         }
     }
  
-    void fall()
+    IEnumerator fall()
     {
-        Debug.Log("c");
-        //  _playerMovement.StopMoveToForward();
-        _playerMovement._animatorController.PlayFall();
+        _tranformMovement.GetComponent<AnimationController>().PlayFall();
         balo._countBrick = 0;
         foreach (Transform item in balo._targetPoint)
         {
@@ -39,5 +37,6 @@ public class CheckTrigger : MonoBehaviour
             item.gameObject.tag = "BrickCharacter";
         }
         balo.ResetBrick();
+        yield return new WaitForSeconds(1.0f);
     }
 }

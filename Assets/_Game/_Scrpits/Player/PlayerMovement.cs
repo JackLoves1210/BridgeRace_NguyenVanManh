@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody =  GetComponent<Rigidbody>();
         Oninit();
-      //  _joystick = FindObjectOfType<>();
     }
 
 

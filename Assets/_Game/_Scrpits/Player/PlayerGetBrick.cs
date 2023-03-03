@@ -14,15 +14,6 @@ public class PlayerGetBrick : MonoBehaviour
     public List<GameObject> _bricks = new List<GameObject>();                // lấy ra vị trí các viên gạch đã ăn 
 
     public int _countBrick = 0;
-
-    private void Start()
-    {
-        //_brickManagerment = _brickManagerment.GetComponent<BrickManagerment>();
-    }
-    private void Update()
-    {
-       // Debug.Log("Count brick :" + _countBrick);
-    }
     private void OnTriggerEnter(Collider other)
     {
 
@@ -31,8 +22,6 @@ public class PlayerGetBrick : MonoBehaviour
             if (other.gameObject.GetComponent<ResourceGenerator>()._number == _getColorCharacter._numColor )
             {
                 AddBrick();
-              //  int num = other.gameObject.GetComponent<ResourceGenerator>()._number;
-               // _bricks.Add(other.gameObject);
                 other.gameObject.SetActive(false);
                 _holderBrick._listObjectPooling.Add(other.transform);
             }
@@ -40,7 +29,6 @@ public class PlayerGetBrick : MonoBehaviour
         if (other.CompareTag("BrickCharacter"))
         {
             AddBrick();
-            Debug.Log("â");
             Destroy(other);
         }
     }
@@ -52,12 +40,6 @@ public class PlayerGetBrick : MonoBehaviour
         {
             AddBrick();
             Debug.Log("â");
-            //int num = collision.gameObject.GetComponent<ResourceGenerator>()._number;
-            //s   BrickManagerment.arr1[num]--;
-            //  _brickManagerment.arr1[num]--;
-            //  Destroy(other.gameObject);
-          //  _bricks.Add(collision.gameObject);
-           // collision.gameObject.SetActive(false);
         }
     }
     private void AddBrick()
@@ -79,11 +61,8 @@ public class PlayerGetBrick : MonoBehaviour
         // khi va chạm với cầu sẽ trừ đi gạch trên lưng
         _countBrick--;
         _targetPoint.position -= _stack;
-       // Debug.Log("countBrick :" + _countBrick);
         _stackBrick.Pop();
         Destroy(_targetPoint.GetChild(_countBrick).gameObject);
-       // _bricks[_bricks.Count-1].SetActive(true);
-      //  _bricks.RemoveAt(_bricks.Count - 1);
         Transform newobject = _holderBrick._listObjectPooling[_holderBrick._listObjectPooling.Count - 1];
         _holderBrick._listObjectPooling.RemoveAt(_holderBrick._listObjectPooling.Count - 1);
         newobject.SetParent(_holderBrick.transform);

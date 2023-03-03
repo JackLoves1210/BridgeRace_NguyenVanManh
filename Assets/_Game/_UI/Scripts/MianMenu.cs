@@ -5,11 +5,12 @@ using UnityEngine;
 public class MianMenu : UICanvas
 {
 
+    
     public void PlayButton()
     {
         UIManager.Ins.OpenUI<GamePlay>();
-        
         Close(0);
+        
         Time.timeScale = 1;
     }
 

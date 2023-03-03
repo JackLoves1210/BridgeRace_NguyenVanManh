@@ -11,20 +11,17 @@ public class ResourceGenerator: MonoBehaviour
     {
        Generating();
     }
-    private void Update()
-    {
-      
-    }
 
     public virtual void Generating()
     {
-        // _number = Random.Range(0, 5);
-       // do
-       // {
-            _number = Random.Range(0, _numberCharacter);
-     //   } while (BrickManagerment.arr1[_number] == 39);
-
+        
+        _number = Random.Range(0, _numberCharacter);
         ResourceManager._instance.ChangeColor(_number, transform.gameObject);
-       // BrickManagerment.arr1[_number]++;
+
+        // _number = Random.Range(0, 5);
+        // do
+        // {
+        // _number = Random.Range(0, 39);
+        //   } while (BrickManagerment.arr1[_number] == 39);
     }
 }

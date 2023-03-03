@@ -9,22 +9,15 @@ public class CheckWinner : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] CameraMovement cameraMovement;
 
-    private void Awake()
-    {
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player") )
         {
             LoadWinner();
-           // _floatingJoystick.transform.gameObject.SetActive(false);
             other.gameObject.GetComponent<AnimationController>().PlayWin();
             other.transform.position = Vector3.Lerp(other.transform.position, _targetWinner.position, 10 * Time.deltaTime);
             other.transform.localRotation = Quaternion.Euler(0, 180, 0);
             StartCoroutine(LoadWinCanvas());
-            //  GameController._instance.isGameWon = true;
-            // playerMovement.StopMoveToForward();
-            // cameraMovement.enabled = false;
         }
         if (other.gameObject.CompareTag("Bot"))
         {

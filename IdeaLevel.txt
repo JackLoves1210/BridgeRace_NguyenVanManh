@@ -1,0 +1,14 @@
+Level 1 :
++ Có một bot 
++ Tỉ lệ gạch bằng nha
++ Có 3 state nhỏ : 2 state đầu có 2 cầu , state cuối có 1 cầu
+
+Level 2 :
++ Có 2 bot
++ Tỉ lệ gạch player giảm
++ Có 3 state nhỏ : state đầu có 3 cầu ,state giữa có 2 cầu , state cuối có 1 cầu
+
+Level 3 :
++ Có 2 bot
++ Tỉ lệ gạch player giảm , tốc độ bot tăng
++ Có 3 state nhỏ : state đầu có 2 cầu ,state giữa có 2 cầu , state cuối có 1 cầu
