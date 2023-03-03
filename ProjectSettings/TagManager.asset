@@ -9,6 +9,7 @@ TagManager:
   - Bot
   - Floor
   - Brigde
+  - BrickCharacter
   layers:
   - Default
   - TransparentFX

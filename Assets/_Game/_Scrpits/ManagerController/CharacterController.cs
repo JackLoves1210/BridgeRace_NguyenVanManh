@@ -5,8 +5,8 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] public AnimationController _animatorController;
-    [SerializeField] public float _rotateSpeed;
-    [SerializeField] public float _moveSpeed;
+    protected float _rotateSpeed;
+    protected float _moveSpeed;
 
     protected virtual void Start()
     {

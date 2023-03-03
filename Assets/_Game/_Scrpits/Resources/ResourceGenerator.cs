@@ -23,7 +23,7 @@ public class ResourceGenerator: MonoBehaviour
        // {
             _number = Random.Range(0, _numberCharacter);
      //   } while (BrickManagerment.arr1[_number] == 39);
-        // Đừng thay đổi số 39 phía trên ko lõi đấy :))
+
         ResourceManager._instance.ChangeColor(_number, transform.gameObject);
        // BrickManagerment.arr1[_number]++;
     }

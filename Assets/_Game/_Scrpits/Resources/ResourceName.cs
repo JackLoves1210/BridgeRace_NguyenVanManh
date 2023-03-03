@@ -12,4 +12,5 @@ public enum ResourceName
     Orange = 4,
     Red = 5,
     Violet = 6,
+    Gray = 10,
 }

@@ -21,10 +21,12 @@ public class Character : CharacterController
     [SerializeField] private GameObject _listBrick;
     [SerializeField] private FloorController _floorController;  // lấy ra số viên gạch trên sẫn
 
-  //  [SerializeField] private List<Transform> _ListPointUnderBridge;
+    [SerializeField] private HolderBrick _holderBrick;
+    [SerializeField] public PlayerGetBrick _botGetBrick;
+   //  [SerializeField] private List<Transform> _ListPointUnderBridge;
   //  [SerializeField] private List<Transform> _ListPointInsideBridge;
     [SerializeField] private int numberBot;
-    bool _isCheckList = false;
+    public bool _isCheckList = false;
     private int _numBrickRandom;
     private int _numberBrick;
     protected  override  void Start()
@@ -42,14 +44,16 @@ public class Character : CharacterController
             currentState.OnExecute(this);
         }
         //   Debug.Log("num :" + _numBrick);
-            GetListBrickTarget();
-        
+        //GetListBrickTarget(_holderBrick._listHolderBrick);
+      
+        GetListBrickTarget(_listBrick.transform);
+    
     }
 
     protected override void Oninit()
     {
         base.Oninit();
-        _numBrickRandom = Random.Range(4, 8);
+        _numBrickRandom = Random.Range(4, 6);
         navMeshAgent.speed = _moveSpeed;
         _playerGetBrick = _playerGetBrick.GetComponent<PlayerGetBrick>();
         ChangeState(new IdleState());
@@ -62,7 +66,7 @@ public class Character : CharacterController
 
     }
 
-    
+
 
     public void GoToTargetPoint()
     {
@@ -115,15 +119,13 @@ public class Character : CharacterController
     //    return _nextTargetPoint;
     //}
 
-    public void GetListBrickTarget()
+    public void GetListBrickTarget(Transform transforms)
     {
-        if (!_isCheckList)
+        if (!_isCheckList || _listBrickTarget.Count < 0)
         {
             Debug.Log(" despawm");
-            foreach (Transform child in _listBrick.gameObject.transform )
+            foreach (Transform child in transforms)
             {
-                Debug.Log(child.gameObject.GetComponent<ResourceGenerator>()._number);
-                Debug.Log(_getColorCharacter.GetComponent<GetColor>()._numColor);
                 if (child.gameObject.GetComponent<ResourceGenerator>()._number == _getColorCharacter.GetComponent<GetColor>()._numColor)
                 {
                     _listBrickTarget.Add(child.gameObject);
@@ -181,14 +183,29 @@ public class Character : CharacterController
         if (collision.collider.CompareTag("Floor"))
         {
             _floorController=  collision.collider.GetComponent<FloorController>();
+
         }
     }
 
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Floor"))
+        {
+            _floorController = collision.collider.GetComponent<FloorController>();
+            
+
+        }
+    }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.collider.CompareTag("Floor"))
         {
             _floorController = collision.collider.GetComponent<FloorController>();
+            //_isCheckList = false;
+            //Debug.Log("nothing");
+            //List<Transform> list = _floorController.ListBrick();
+            //GetListBrickTarget(list);
         }
     }
 }

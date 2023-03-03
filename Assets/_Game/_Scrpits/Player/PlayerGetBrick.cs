@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class PlayerGetBrick : MonoBehaviour
 {
-    [SerializeField] private Transform _targetPoint;
+    [SerializeField] public Transform _targetPoint;
     [SerializeField] public GameObject _brickPrefab;
     [SerializeField] private GetColor _getColorCharacter;
-    //[SerializeField] public GameObject _brick;
+    [SerializeField] private HolderBrick _holderBrick;
     public Stack<GameObject> _stackBrick = new Stack<GameObject>();   // tích stack trên lưng player
     private Vector3 _stack = new Vector3(0, 0.25f, 0);                  // độ cao stack gạch
     public List<GameObject> _bricks = new List<GameObject>();                // lấy ra vị trí các viên gạch đã ăn 
-    //[SerializeField] private BrickManagerment _brickManagerment;
 
     public int _countBrick = 0;
 
@@ -26,20 +25,40 @@ public class PlayerGetBrick : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Brick")
+
+        if (other.tag == "Brick" )
         {
-            if (other.gameObject.GetComponent<ResourceGenerator>()._number == _getColorCharacter._numColor)
+            if (other.gameObject.GetComponent<ResourceGenerator>()._number == _getColorCharacter._numColor )
             {
                 AddBrick();
-                int num = other.gameObject.GetComponent<ResourceGenerator>()._number;
-             //s   BrickManagerment.arr1[num]--;
-              //  _brickManagerment.arr1[num]--;
-                //  Destroy(other.gameObject);
-                _bricks.Add(other.gameObject);
+              //  int num = other.gameObject.GetComponent<ResourceGenerator>()._number;
+               // _bricks.Add(other.gameObject);
                 other.gameObject.SetActive(false);
+                _holderBrick._listObjectPooling.Add(other.transform);
             }
         }
-        
+        if (other.CompareTag("BrickCharacter"))
+        {
+            AddBrick();
+            Debug.Log("â");
+            Destroy(other);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+       
+        if (collision.collider.CompareTag("BrickCharacter"))
+        {
+            AddBrick();
+            Debug.Log("â");
+            //int num = collision.gameObject.GetComponent<ResourceGenerator>()._number;
+            //s   BrickManagerment.arr1[num]--;
+            //  _brickManagerment.arr1[num]--;
+            //  Destroy(other.gameObject);
+          //  _bricks.Add(collision.gameObject);
+           // collision.gameObject.SetActive(false);
+        }
     }
     private void AddBrick()
     {
@@ -47,9 +66,11 @@ public class PlayerGetBrick : MonoBehaviour
         // Tạo gạch trên lưng player
         GameObject obj =  Instantiate(_brickPrefab, new Vector3(_targetPoint.position.x , _targetPoint.position.y - _countBrick * _stack.y, _targetPoint.position.z), transform.rotation);
      //  obj.GetComponent<Renderer>().material = transform.GetComponent<Renderer>().material;
+
         _stackBrick.Push(obj);
         _targetPoint.position += _stack;
         _countBrick++;
+
         obj.transform.SetParent(_targetPoint);
     }
 
@@ -61,7 +82,22 @@ public class PlayerGetBrick : MonoBehaviour
        // Debug.Log("countBrick :" + _countBrick);
         _stackBrick.Pop();
         Destroy(_targetPoint.GetChild(_countBrick).gameObject);
-        _bricks[_bricks.Count-1].SetActive(true);
-        _bricks.RemoveAt(_bricks.Count - 1);
+       // _bricks[_bricks.Count-1].SetActive(true);
+      //  _bricks.RemoveAt(_bricks.Count - 1);
+        Transform newobject = _holderBrick._listObjectPooling[_holderBrick._listObjectPooling.Count - 1];
+        _holderBrick._listObjectPooling.RemoveAt(_holderBrick._listObjectPooling.Count - 1);
+        newobject.SetParent(_holderBrick.transform);
+        newobject.gameObject.SetActive(true);
+    }
+
+    public void ResetBrick()
+    {
+        _countBrick = 0;
+        _targetPoint.position -= _stackBrick.Count * _stack;
+        _stackBrick.Clear();
+        foreach (Transform child in _targetPoint)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

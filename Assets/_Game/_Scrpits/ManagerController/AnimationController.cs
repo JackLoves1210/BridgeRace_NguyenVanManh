@@ -25,6 +25,11 @@ public class AnimationController : MonoBehaviour
     {
         ChangeAnim("win");
     }
+
+    public void PlayFall()
+    {
+        ChangeAnim("fall");
+    }
     private void ChangeAnim(string _animName)
     {
         if (_currentAnim != _animName)

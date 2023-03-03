@@ -109,3 +109,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetWinner: {fileID: 0}
+  _floatingJoystick: {fileID: 0}

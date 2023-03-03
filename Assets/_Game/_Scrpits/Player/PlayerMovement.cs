@@ -6,8 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private FloatingJoystick _joystick;
-    [SerializeField] private AnimationController _animatorController;
+    [SerializeField] public FloatingJoystick _joystick;
+    [SerializeField] public AnimationController _animatorController;
 
     [SerializeField] public float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody =  GetComponent<Rigidbody>();
         Oninit();
+      //  _joystick = FindObjectOfType<>();
     }
 
 

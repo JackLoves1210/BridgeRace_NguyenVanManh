@@ -5,7 +5,10 @@ using UnityEngine;
 public class OpenDoor : MonoBehaviour
 {
     [SerializeField] GameObject obj;
-    [SerializeField] private GameObject _bricks;
+    [SerializeField] GameObject link;
+    [SerializeField] private GameObject _listBricks;
+    [SerializeField] private Character _character;
+   
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("Bot"))
@@ -18,10 +21,17 @@ public class OpenDoor : MonoBehaviour
     
     void SetActiveBrick()
     {
-        foreach  (Transform item in _bricks.transform)
+
+        link.SetActive(true);
+        foreach  (Transform item in _listBricks.transform)
         {
             item.gameObject.SetActive(true);
+           
         }
+        
+            _character._isCheckList = false;
+            _character.GetListBrickTarget(_listBricks.transform);
+        
     }
     
 }

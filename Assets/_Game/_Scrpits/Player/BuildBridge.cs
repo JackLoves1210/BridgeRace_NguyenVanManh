@@ -22,6 +22,11 @@ public class BuildBridge : MonoBehaviour
     private bool _isHaveStep;
     private void Update()
     {
+        if (_player.gameObject.CompareTag("Bot"))
+        {
+            _numberBrick = _playerGetBrick.GetComponent<PlayerGetBrick>()._stackBrick.Count;
+            BuildStair();
+        }
         
     }
 
@@ -33,7 +38,7 @@ public class BuildBridge : MonoBehaviour
             BuildStair();
         }
     }
-    private void BuildStair()
+    public void BuildStair()
     {
         Debug.DrawLine(_player.position + new Vector3(0, 1f, 0.25f), _player.position + new Vector3(0, 0, 0.25f) + Vector3.down * 50f, color: Color.red);
         Ray ray = new Ray(_player.position + new Vector3(0, 1f, 0.25f), Vector3.down);

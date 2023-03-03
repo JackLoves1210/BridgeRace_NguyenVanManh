@@ -7,8 +7,9 @@ public class FloorController : MonoBehaviour
     [SerializeField] protected GameObject _ListBrickInFloor_1;
     [SerializeField] protected GameObject _ListBrickInFloor_2;
     [SerializeField] protected GameObject _ListBrickInFloor_3;
-    [SerializeField] protected int _numberFloor;
-    [SerializeField] public List<GameObject> _listBrick;
+    [SerializeField] public int _numberFloor;
+    [SerializeField] public List<Transform> _listBrick;
+
     void Start()
     {
         Oninit();
@@ -16,37 +17,37 @@ public class FloorController : MonoBehaviour
 
     private void Oninit()
     {
-       ListBrick();
+       ListBrick(_numberFloor);
     }
 
     // Update is called once per frame
-    void Update()
-    {
 
-    }
 
-    public List<GameObject> ListBrick(){
-        if (_numberFloor == 1)
+    public List<Transform> ListBrick(int num){
+        if (num == 1)
         {
             foreach (Transform item in _ListBrickInFloor_1.transform)
             {
-                _listBrick.Add(item.gameObject);
+                
+                _listBrick.Add(item);
             }
         }
-        if (_numberFloor == 2)
+        if (num == 2)
         {
             foreach (Transform item in _ListBrickInFloor_2.transform)
             {
-
-                _listBrick.Add(item.gameObject);
+                
+                _listBrick.Clear();
+                _listBrick.Add(item);
             }
         }
-        if (_numberFloor == 3)
+        if (num == 3)
         {
             foreach (Transform item in _ListBrickInFloor_3.transform)
             {
- 
-                _listBrick.Add(item.gameObject);
+                
+                _listBrick.Clear();
+                _listBrick.Add(item);
             }
         }
         return _listBrick;

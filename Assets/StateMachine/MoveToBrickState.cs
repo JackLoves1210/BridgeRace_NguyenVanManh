@@ -13,6 +13,7 @@ public class MoveToBrickState : IState<Character>
       
        // t.ActiveSpeed();
         t.GoToTargetPoint();
+        //t.BotBuildBrigde();
     }
 
     public void OnExit(Character t)
