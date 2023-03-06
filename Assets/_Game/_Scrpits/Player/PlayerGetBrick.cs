@@ -10,7 +10,7 @@ public class PlayerGetBrick : MonoBehaviour
     [SerializeField] private GetColor _getColorCharacter;
     [SerializeField] private HolderBrick _holderBrick;
     public Stack<GameObject> _stackBrick = new Stack<GameObject>();   // tích stack trên lưng player
-    private Vector3 _stack = new Vector3(0, 0.25f, 0);                  // độ cao stack gạch
+    private Vector3 _stack = new Vector3(0, 0.3f, 0);                  // độ cao stack gạch
     public List<GameObject> _bricks = new List<GameObject>();                // lấy ra vị trí các viên gạch đã ăn 
 
     public int _countBrick = 0;
@@ -63,10 +63,13 @@ public class PlayerGetBrick : MonoBehaviour
         _targetPoint.position -= _stack;
         _stackBrick.Pop();
         Destroy(_targetPoint.GetChild(_countBrick).gameObject);
-        Transform newobject = _holderBrick._listObjectPooling[_holderBrick._listObjectPooling.Count - 1];
-        _holderBrick._listObjectPooling.RemoveAt(_holderBrick._listObjectPooling.Count - 1);
-        newobject.SetParent(_holderBrick.transform);
-        newobject.gameObject.SetActive(true);
+        if (_holderBrick._listObjectPooling.Count -1 > 0)
+        {
+            Transform newobject = _holderBrick._listObjectPooling[_holderBrick._listObjectPooling.Count - 1];
+            _holderBrick._listObjectPooling.RemoveAt(_holderBrick._listObjectPooling.Count - 1);
+            newobject.SetParent(_holderBrick.transform);
+            newobject.gameObject.SetActive(true);
+        }
     }
 
     public void ResetBrick()

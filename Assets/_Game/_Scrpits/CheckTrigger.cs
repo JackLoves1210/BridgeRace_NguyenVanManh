@@ -5,27 +5,37 @@ using UnityEngine;
 public class CheckTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject _tranformMovement;
-    [SerializeField] private PlayerGetBrick balo;
-
+    [SerializeField] private PlayerGetBrick baloOther;
+    [SerializeField] private PlayerGetBrick baloSelf;
     Rigidbody rb;
     BoxCollider boxCollider;
+    public bool isFalling = false;
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Bot") || collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Bot") )
         {
-            if (balo._countBrick < collision.collider.GetComponent<Character>()._botGetBrick._countBrick)
+            if (baloSelf._countBrick < baloOther._countBrick)
             {
                 StartCoroutine(fall());
-                _tranformMovement.GetComponent<AnimationController>().PlayRun();
+               // _tranformMovement.GetComponent<PlayerMovement>().ActiveSpeed();
+ 
+            }
+        }
+        if (collision.collider.CompareTag("Player"))
+        {
+            if (baloSelf._countBrick < baloOther._countBrick)
+            {
+                StartCoroutine(fall());
             }
         }
     }
  
     IEnumerator fall()
     {
+        isFalling = true;
         _tranformMovement.GetComponent<AnimationController>().PlayFall();
-        balo._countBrick = 0;
-        foreach (Transform item in balo._targetPoint)
+        baloSelf._countBrick = 0;
+        foreach (Transform item in baloSelf._targetPoint)
         {
             item.SetParent(null);
             ResourceManager._instance.ChangeColor(5, item.gameObject);
@@ -35,8 +45,11 @@ public class CheckTrigger : MonoBehaviour
             boxCollider = item.gameObject.AddComponent<BoxCollider>();
             boxCollider.size = new Vector3(1, 1, 1);
             item.gameObject.tag = "BrickCharacter";
+            item.GetComponent<Renderer>().material.color = Color.gray;
         }
-        balo.ResetBrick();
-        yield return new WaitForSeconds(1.0f);
+        baloSelf.ResetBrick();
+        yield return new WaitForSeconds(2f);
+        isFalling = false;
+
     }
 }

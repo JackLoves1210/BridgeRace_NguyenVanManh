@@ -23,6 +23,7 @@ public class Character : CharacterController
 
     [SerializeField] private HolderBrick _holderBrick;
     [SerializeField] public PlayerGetBrick _botGetBrick;
+    [SerializeField] public CheckTrigger _checkTrigger;
    //  [SerializeField] private List<Transform> _ListPointUnderBridge;
   //  [SerializeField] private List<Transform> _ListPointInsideBridge;
     [SerializeField] private int numberBot;
@@ -34,20 +35,15 @@ public class Character : CharacterController
         Oninit();
     }
 
-    // Update is called once per frame
     void Update()
     {
-      
-        
+
         if (currentState != null)
         {
             currentState.OnExecute(this);
         }
-        //   Debug.Log("num :" + _numBrick);
-        //GetListBrickTarget(_holderBrick._listHolderBrick);
-      
+        CheckFalling();
         GetListBrickTarget(_listBrick.transform);
-    
     }
 
     protected override void Oninit()
@@ -71,7 +67,8 @@ public class Character : CharacterController
     public void GoToTargetPoint()
     {
         _numberBrick = _playerGetBrick.GetComponent<PlayerGetBrick>()._stackBrick.Count;
-      
+
+        _animatorController.PlayRun();
         // Tìm kiếm đối tượng vật thể gần nhất
         if (_nextTargetPoint == null || _playerGetBrick._stackBrick.Count <= 0)
         {
@@ -108,16 +105,6 @@ public class Character : CharacterController
             _animatorController.PlayIdle();
         }
     }
-
-    //private Transform FindNextTarget()
-    //{
-    //    if (Vector3.Distance(transform.position, _ListPointUnderBridge[numberBot].transform.position) < 0.5f) 
-    //    {
-    //        _nextTargetPoint = _ListPointInsideBridge[numberBot].transform;
-
-    //    }
-    //    return _nextTargetPoint;
-    //}
 
     public void GetListBrickTarget(Transform transforms)
     {
@@ -177,35 +164,19 @@ public class Character : CharacterController
         navMeshAgent.speed = 4f;
         _animatorController.PlayRun();
     }
-
-    private void OnCollisionStay(Collision collision)
+    
+    public void CheckFalling()
     {
-        if (collision.collider.CompareTag("Floor"))
+        if (_checkTrigger.isFalling == true)
         {
-            _floorController=  collision.collider.GetComponent<FloorController>();
-
+            currentState = null;
         }
-    }
-
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("Floor"))
+        if (_checkTrigger.isFalling == false)
         {
-            _floorController = collision.collider.GetComponent<FloorController>();
-            
-
-        }
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.collider.CompareTag("Floor"))
-        {
-            _floorController = collision.collider.GetComponent<FloorController>();
-            //_isCheckList = false;
-            //Debug.Log("nothing");
-            //List<Transform> list = _floorController.ListBrick();
-            //GetListBrickTarget(list);
+            if (currentState == null)
+            {
+                this.ChangeState(new IdleState());
+            }
         }
     }
 }

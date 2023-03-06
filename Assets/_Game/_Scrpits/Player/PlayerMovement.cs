@@ -37,23 +37,27 @@ public class PlayerMovement : MonoBehaviour
 
     public  void Move()
     {
-        _moveVector = Vector3.zero;
-        _moveVector.x = _joystick.Horizontal * _moveSpeed * Time.deltaTime;
-        _moveVector.z = _joystick.Vertical * _moveSpeed * Time.deltaTime;
-
-        if (_joystick.Horizontal != 0 || _joystick.Vertical != 0)
+        if (_joystick != null)
         {
-            Vector3 direction = Vector3.RotateTowards(transform.forward, _moveVector,_rotateSpeed * Time.deltaTime, 0.0f);
-            transform.rotation = Quaternion.LookRotation(direction);
+            _moveVector = Vector3.zero;
+            _moveVector.x = _joystick.Horizontal * _moveSpeed * Time.deltaTime;
+            _moveVector.z = _joystick.Vertical * _moveSpeed * Time.deltaTime;
 
-            _animatorController.PlayRun();
-        }
-        else if (_joystick.Horizontal == 0 && _joystick.Vertical == 0)
-        {
-            _animatorController.PlayIdle();
-        }
+            if (_joystick.Horizontal != 0 || _joystick.Vertical != 0)
+            {
+                Vector3 direction = Vector3.RotateTowards(transform.forward, _moveVector, _rotateSpeed * Time.deltaTime, 0.0f);
+                transform.rotation = Quaternion.LookRotation(direction);
 
-        _rigidbody.MovePosition(_rigidbody.position + _moveVector);
+                _animatorController.PlayRun();
+            }
+            else if (_joystick.Horizontal == 0 && _joystick.Vertical == 0)
+            {
+                _animatorController.PlayIdle();
+            }
+
+            _rigidbody.MovePosition(_rigidbody.position + _moveVector);
+        }
+       
     }
     public void StopMoveToForward()
     {

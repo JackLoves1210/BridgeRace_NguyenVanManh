@@ -74,13 +74,13 @@ public class BuildBridge : MonoBehaviour
                 _playerGetBrick.RemoveBrick();
                 obj.gameObject.transform.SetParent(_brigde);
             }
-            else if (transform.CompareTag("Player"))
+            else if (transform.CompareTag("Player") )
             {
-                if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z > 0)
+                if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z > 0 && _isHaveStep)
                 {
                     _player.GetComponent<PlayerMovement>().StopMoveToForward();
                 }
-                else if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z < 0)
+                else if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z < 0 && _isHaveStep)
                 {
                     _player.GetComponent<PlayerMovement>().ActiveSpeed();
                 }
@@ -93,15 +93,18 @@ public class BuildBridge : MonoBehaviour
         }
         else if (transform.CompareTag("Player") || transform.CompareTag("Bot"))
         {
-            if (hitForward.collider != null && _isHaveStep && _numberBrick > 0)
+            if (hitForward.collider != null && hitForward.collider.GetComponent<GetColor>() != null && _isHaveStep && _numberBrick > 0)
             {
-                if (hitForward.collider.GetComponent<GetColor>()._numColor != _getColorCharacter.gameObject.GetComponent<GetColor>()._numColor)
+                if (hitForward.collider.GetComponent<GetColor>()._numColor != _getColorCharacter._numColor)
                 {
-                    hitForward.collider.GetComponent<GetColor>()._numColor = _getColorCharacter.gameObject.GetComponent<GetColor>()._numColor;
+                    hitForward.collider.GetComponent<GetColor>()._numColor = _getColorCharacter._numColor;
                     hitForward.collider.GetComponent<Renderer>().material = _getColorCharacter.gameObject.GetComponent<Renderer>().material;
                     _playerGetBrick.RemoveBrick();
                 }
-
+                else
+                {
+                    return;
+                }
             }
         }
     }
