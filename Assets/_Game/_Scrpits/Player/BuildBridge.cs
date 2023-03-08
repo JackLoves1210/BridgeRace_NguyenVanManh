@@ -76,11 +76,12 @@ public class BuildBridge : MonoBehaviour
             }
             else if (transform.CompareTag("Player") )
             {
-                if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z > 0 && _isHaveStep)
+                if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z > 0 )
                 {
+                    
                     _player.GetComponent<PlayerMovement>().StopMoveToForward();
                 }
-                else if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z < 0 && _isHaveStep)
+                else if (hitForward.collider != null && _numberBrick <= 0 && _player.GetComponent<PlayerMovement>()._moveVector.z < 0 )
                 {
                     _player.GetComponent<PlayerMovement>().ActiveSpeed();
                 }

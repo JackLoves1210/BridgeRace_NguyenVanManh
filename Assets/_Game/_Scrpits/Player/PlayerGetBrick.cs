@@ -46,14 +46,24 @@ public class PlayerGetBrick : MonoBehaviour
     {
         _brickPrefab.GetComponent<Renderer>().material = _getColorCharacter.gameObject.GetComponent<Renderer>().material;
         // Tạo gạch trên lưng player
-        GameObject obj =  Instantiate(_brickPrefab, new Vector3(_targetPoint.position.x , _targetPoint.position.y - _countBrick * _stack.y, _targetPoint.position.z), transform.rotation);
-     //  obj.GetComponent<Renderer>().material = transform.GetComponent<Renderer>().material;
+        GameObject obj = Instantiate(_brickPrefab, new Vector3(_targetPoint.position.x, _targetPoint.position.y - _countBrick * _stack.y, _targetPoint.position.z), transform.rotation);
+        //  obj.GetComponent<Renderer>().material = transform.GetComponent<Renderer>().material;
 
         _stackBrick.Push(obj);
         _targetPoint.position += _stack;
         _countBrick++;
 
         obj.transform.SetParent(_targetPoint);
+    }
+
+    public IEnumerator Fly(GameObject obj, Vector3 target)
+    {
+        while (Vector3.Distance(obj.transform.localPosition,target)<0.1f)
+        {
+            obj.transform.localPosition = Vector3.MoveTowards(obj.transform.localPosition, target, Time.deltaTime);
+            yield return null;
+        }
+        yield return null;
     }
 
     public void RemoveBrick()

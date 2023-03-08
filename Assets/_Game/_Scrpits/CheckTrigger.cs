@@ -5,7 +5,6 @@ using UnityEngine;
 public class CheckTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject _tranformMovement;
-    [SerializeField] private PlayerGetBrick baloOther;
     [SerializeField] private PlayerGetBrick baloSelf;
     Rigidbody rb;
     BoxCollider boxCollider;
@@ -14,19 +13,22 @@ public class CheckTrigger : MonoBehaviour
     {
         if (collision.collider.CompareTag("Bot") )
         {
-            if (baloSelf._countBrick < baloOther._countBrick)
+            if (baloSelf._countBrick < collision.collider.GetComponentInChildren<PlayerGetBrick>()._countBrick)
             {
                 StartCoroutine(fall());
-               // _tranformMovement.GetComponent<PlayerMovement>().ActiveSpeed();
+                // _tranformMovement.GetComponent<PlayerMovement>().ActiveSpeed();
+                Debug.Log("1");
  
             }
         }
-        if (collision.collider.CompareTag("Player"))
+        else if (collision.collider.CompareTag("Player"))
         {
-            if (baloSelf._countBrick < baloOther._countBrick)
+            if (baloSelf._countBrick < collision.collider.GetComponentInChildren<PlayerGetBrick>()._countBrick)
             {
                 StartCoroutine(fall());
             }
+            Debug.Log("2");
+
         }
     }
  

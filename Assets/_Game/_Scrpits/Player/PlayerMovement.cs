@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] public FloatingJoystick _joystick;
     [SerializeField] public AnimationController _animatorController;
-
+    [SerializeField] private CheckTrigger _checkTrigger;
     [SerializeField] public float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
 
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     public  void Move()
     {
-        if (_joystick != null)
+        if (_joystick != null && !_checkTrigger.isFalling)
         {
             _moveVector = Vector3.zero;
             _moveVector.x = _joystick.Horizontal * _moveSpeed * Time.deltaTime;

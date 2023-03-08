@@ -8,7 +8,8 @@ public class OpenDoor : MonoBehaviour
     [SerializeField] GameObject link;
     [SerializeField] private GameObject _listBricks;
     [SerializeField] private Character _character;
-   
+    [SerializeField] private Character _character_1;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("Bot"))
@@ -26,12 +27,13 @@ public class OpenDoor : MonoBehaviour
         foreach  (Transform item in _listBricks.transform)
         {
             item.gameObject.SetActive(true);
-           
         }
         
-            _character._isCheckList = false;
-            _character.GetListBrickTarget(_listBricks.transform);
-        
+        _character._isCheckList = false;
+        _character.GetListBrickTarget(_listBricks.transform);
+        _character_1._isCheckList = false;
+        _character_1.GetListBrickTarget(_listBricks.transform);
+
     }
     
 }
